@@ -87,7 +87,7 @@ class NativeEventFormViewController : FormViewController {
                     row.onCollapseInlineRow { cell, _, _ in
                         cell.detailTextLabel?.textColor = color
                     }
-                    cell.detailTextLabel?.textColor = cell.tintColor
+//                    cell.detailTextLabel?.textColor = cell.tintColor
             }
 
             <<< DateTimeInlineRow("Ends"){
@@ -118,7 +118,7 @@ class NativeEventFormViewController : FormViewController {
                     row.onCollapseInlineRow { cell, _, _ in
                         cell.detailTextLabel?.textColor = color
                     }
-                    cell.detailTextLabel?.textColor = cell.tintColor
+//                    cell.detailTextLabel?.textColor = cell.tintColor
         }
 
         form +++

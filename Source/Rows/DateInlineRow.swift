@@ -109,7 +109,7 @@ public final class DateInlineRow_<T>: _DateInlineRow, RowType, InlineRowType {
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 
@@ -132,7 +132,7 @@ public final class DateTimeInlineRow_<T>: _DateTimeInlineRow, RowType, InlineRow
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 
@@ -155,7 +155,7 @@ public final class TimeInlineRow_<T>: _TimeInlineRow, RowType, InlineRowType {
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 
@@ -178,7 +178,7 @@ public final class CountDownInlineRow_<T>: _CountDownInlineRow, RowType, InlineR
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 

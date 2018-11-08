@@ -74,7 +74,7 @@ public final class PickerInlineRow<T> : _PickerInlineRow<T>, RowType, InlineRowT
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 
@@ -125,7 +125,7 @@ public final class DoublePickerInlineRow<A, B> : _DoublePickerInlineRow<A, B>, R
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 
@@ -180,7 +180,7 @@ public final class TriplePickerInlineRow<A, B, C> : _TriplePickerInlineRow<A, B,
             row.onCollapseInlineRow { cell, _, _ in
                 cell.detailTextLabel?.textColor = color
             }
-            cell.detailTextLabel?.textColor = cell.tintColor
+//            cell.detailTextLabel?.textColor = cell.tintColor
         }
     }
 

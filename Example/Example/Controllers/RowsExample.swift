@@ -13,6 +13,15 @@ import Eureka
 
 class RowsExampleViewController: FormViewController {
 
+    let titles = ["请假人：*","请假类型：*","开始时间：*","结束时间：*","请假事由：","审批人：",]
+    
+    func getAttributTitle(_ title:String) -> NSAttributedString{
+        let att = NSMutableAttributedString(string: title)
+        att.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.red], range: NSRange.init(location: title.count-1, length: 1))
+        att.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.gray], range: NSRange.init(location: 0, length: title.count-1))
+        return att
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,8 +31,88 @@ class RowsExampleViewController: FormViewController {
         DateRow.defaultRowInitializer = { row in row.minimumDate = Date() }
 
         form +++
-
+            
             Section()
+            
+            <<< PickerInputRow<String>("Name"){
+                $0.title = titles[0]
+                $0.options = ["陈安之","陈来之"]
+                $0.value = $0.options.first
+                }.cellUpdate({[weak self] (cell, row) in
+                    cell.textLabel?.attributedText = self!.getAttributTitle(self!.titles[0])
+                    cell.accessoryType = .disclosureIndicator
+                    cell.detailTextLabel?.textColor = .red
+                    cell.height = { 55 }
+                })
+            
+            <<< PickerInputRow<String>("Action"){
+                $0.title = titles[1]
+                $0.options = ["事假","病假"]
+                $0.value = $0.options.first
+                }.cellUpdate({[weak self] (cell, row) in
+                    cell.textLabel?.attributedText = self!.getAttributTitle(self!.titles[1])
+                    cell.accessoryType = .disclosureIndicator
+                    cell.detailTextLabel?.textColor = .red
+                    cell.height = { 55 }
+                })
+            
+            <<< DateTimeRow("Starts") {
+                $0.title = titles[2]
+                $0.value = Date()
+                let formatter = DateFormatter()
+                formatter.dateStyle = .short
+                formatter.dateFormat = "yyyy-MM-dd HH:00"
+                $0.dateFormatter = formatter
+                }.onChange { [weak self] row in
+                    let endRow: DateTimeRow! = self?.form.rowBy(tag: "Ends")
+                    if row.value?.compare(endRow.value!) == .orderedDescending {
+                        endRow.value = Date(timeInterval: 60*60*24, since: row.value!)
+                        endRow.cell!.backgroundColor = .white
+                        endRow.updateCell()
+                    }
+                }.cellUpdate({[weak self] (cell, row) in
+                    cell.textLabel?.attributedText = self!.getAttributTitle(self!.titles[2])
+                    cell.accessoryType = .disclosureIndicator
+                    cell.datePicker.locale = Locale(identifier: "zh_CN")
+                    cell.detailTextLabel?.textColor = .red
+                    cell.height = { 55 }
+                })
+            
+            <<< DateTimeRow("Ends"){
+                $0.title = titles[3]
+                $0.value = Date()
+                let formatter = DateFormatter()
+                formatter.dateStyle = .short
+                formatter.dateFormat = "yyyy-MM-dd HH:00"
+                $0.dateFormatter = formatter
+                }.onChange { [weak self] row in
+                    let startRow: DateTimeRow! = self?.form.rowBy(tag: "Starts")
+                    if row.value?.compare(startRow.value!) == .orderedAscending {
+                        row.cell!.backgroundColor = .red
+                    }
+                    else{
+                        row.cell!.backgroundColor = .white
+                    }
+                    row.updateCell()
+                }.cellUpdate({[weak self] (cell, row) in
+                    cell.textLabel?.attributedText = self!.getAttributTitle(self!.titles[3])
+                    cell.accessoryType = .disclosureIndicator
+                    cell.datePicker.locale = Locale(identifier: "zh_CN")
+                    cell.detailTextLabel?.textColor = .red
+                    cell.height = { 55 }
+                })
+            
+            +++ Section()
+            
+            <<< TextAreaRow("Text") {
+                $0.placeholder = "请假事由："
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 55)
+                }.cellUpdate({ (cell, row) in
+                    cell.textView.textContainerInset = UIEdgeInsets.init(top: 0, left: 100, bottom: 0, right: 0)
+                    cell.placeholderLabel?.textColor = .gray
+                })
+
+            +++ Section()
 
             <<< LabelRow () {
                 $0.title = "LabelRow"

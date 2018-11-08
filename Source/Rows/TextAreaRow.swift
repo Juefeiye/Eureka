@@ -77,7 +77,7 @@ open class _TextAreaCell<T> : Cell<T>, UITextViewDelegate, AreaCell where T: Equ
         textView.keyboardType = .default
         textView.font = .preferredFont(forTextStyle: .body)
         textView.textContainer.lineFragmentPadding = 0
-        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainerInset = UIEdgeInsets.init(top: 0, left: 100, bottom: 0, right: 0)
         contentView.addSubview(textView)
 
         let placeholderLabel = UILabel()
@@ -134,7 +134,7 @@ open class _TextAreaCell<T> : Cell<T>, UITextViewDelegate, AreaCell where T: Equ
         textView.textColor = row.isDisabled ? .gray : .black
         textView.text = row.displayValueFor?(row.value)
         placeholderLabel?.text = (row as? TextAreaConformance)?.placeholder
-        placeholderLabel?.isHidden = textView.text.count != 0
+//         placeholderLabel?.isHidden = textView.text.count != 0
     }
 
     open override func cellCanBecomeFirstResponder() -> Bool {
@@ -201,7 +201,7 @@ open class _TextAreaCell<T> : Cell<T>, UITextViewDelegate, AreaCell where T: Equ
             UIView.setAnimationsEnabled(true)
             tableView.setContentOffset(currentOffset, animated: false)
         }
-        placeholderLabel?.isHidden = textView.text.count != 0
+//         placeholderLabel?.isHidden = textView.text.count != 0
         guard let textValue = textView.text else {
             row.value = nil
             return

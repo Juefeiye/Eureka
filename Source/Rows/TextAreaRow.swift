@@ -257,7 +257,7 @@ open class _TextAreaCell<T> : Cell<T>, UITextViewDelegate, AreaCell where T: Equ
         contentView.removeConstraints(dynamicConstraints)
         dynamicConstraints = []
         var views: [String: AnyObject] = ["textView": textView, "label": placeholderLabel!]
-        dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-[label]", options: [], metrics: nil, views: views))
+        dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[label]", options: [], metrics: nil, views: views))
         if let textAreaConformance = row as? TextAreaConformance, case .dynamic(let initialTextViewHeight) = textAreaConformance.textAreaHeight {
             dynamicConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-[textView(>=initialHeight@800)]-|", options: [], metrics: ["initialHeight": initialTextViewHeight], views: views))
         } else {

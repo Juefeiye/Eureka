@@ -58,3 +58,4 @@ public final class LabelRow: _LabelRow, RowType {
         super.init(tag: tag)
     }
 }
+

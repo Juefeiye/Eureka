@@ -11,6 +11,14 @@ import Eureka
 
 //Mark: RowsExampleViewController
 
+public final class LeftLabelRow: _LabelRow, RowType {
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        cellStyle = .value2
+    }
+}
+
+
 class RowsExampleViewController: FormViewController {
 
     let titles = ["请假人：*","请假类型：*","开始时间：*","结束时间：*","请假事由：","审批人：",]
@@ -24,16 +32,68 @@ class RowsExampleViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let font = UIFont.systemFont(ofSize: 14)
         URLRow.defaultCellUpdate = { cell, row in cell.textField.textColor = .blue }
         LabelRow.defaultCellUpdate = { cell, row in cell.detailTextLabel?.textColor = .orange  }
         CheckRow.defaultCellSetup = { cell, row in cell.tintColor = .orange }
         DateRow.defaultRowInitializer = { row in row.minimumDate = Date() }
-
+        LeftLabelRow.defaultCellUpdate = { cell, row in
+            cell.textLabel?.font = font
+            cell.textLabel?.textColor = .gray
+            cell.textLabel?.textAlignment = .center
+            cell.detailTextLabel?.textColor = UIColor.init(red: 85/255.0, green: 85/255.0, blue: 85/255.0, alpha: 1)
+            cell.detailTextLabel?.font = font
+            cell.height = { 55 }
+        }
+        TextRow.defaultCellUpdate = { cell , row in
+            cell.textField.textAlignment = .right
+            cell.textLabel?.font = font
+            cell.textLabel?.textColor = .gray
+            cell.textField.font = font
+            cell.textField.textColor = UIColor.init(red: 85/255.0, green: 85/255.0, blue: 85/255.0, alpha: 1)
+            cell.height = { 55 }
+            cell.textField.isEnabled = false
+            cell.textField.contentVerticalAlignment = .center
+        }
+        
         form +++
             
             Section()
             
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            <<< TextRow() {
+                $0.title = "请假人："
+                $0.value = "陈安之"
+            }
+            
+            +++ Section()
             <<< PickerInputRow<String>("Name"){
                 $0.title = titles[0]
                 $0.options = ["陈安之","陈来之"]
@@ -106,7 +166,7 @@ class RowsExampleViewController: FormViewController {
             
             <<< TextAreaRow("Text") {
                 $0.placeholder = "请假事由："
-                $0.textAreaHeight = .dynamic(initialTextViewHeight: 55)
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 44)
                 }.cellUpdate({ (cell, row) in
                     cell.textView.textContainerInset = UIEdgeInsets.init(top: 0, left: 100, bottom: 0, right: 0)
                     cell.placeholderLabel?.textColor = .gray

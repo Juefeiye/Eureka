@@ -653,6 +653,10 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
     open func textInputDidEndEditing<T>(_ textInput: UITextInput, cell: Cell<T>) {
 
     }
+    
+    open func textInputDidChange<T>(_ textInput: UITextInput, cell: Cell<T>) {
+        
+    }
 
     open func textInput<T>(_ textInput: UITextInput, shouldChangeCharactersInRange range: NSRange, replacementString string: String, cell: Cell<T>) -> Bool {
         return true

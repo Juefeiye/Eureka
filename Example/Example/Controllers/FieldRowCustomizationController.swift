@@ -76,10 +76,25 @@ class FieldRowCustomizationController : FormViewController {
 
             +++ Section("TextAreaRow")
 
-            <<< TextAreaRow() {
-                $0.placeholder = "TextAreaRow"
-                $0.textAreaHeight = .dynamic(initialTextViewHeight: 110)
-        }
+            <<< JFTextAreaRow() {
+                $0.placeholder = "请填写请假内容，如有需要可添加照片。"
+                $0.title = "请假事由"
+                $0.textAreaHeight = .dynamic(initialTextViewHeight: 40)
+                $0.count = 140
+                }.cellUpdate({ [weak self](cell, row) in
+                    cell.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                    cell.titleLabel?.textColor = .red
+                    cell.textView.textContainerInset = UIEdgeInsets.init(top: 34, left: 0, bottom: 0, right: 0)
+                    cell.textView.font = UIFont.systemFont(ofSize: 14)
+                    cell.placeholderLabel?.textColor = .gray
+                    cell.placeholderLabel?.font = UIFont.systemFont(ofSize: 14)
+                    cell.countLabel?.font = UIFont.systemFont(ofSize: 14)
+                    
+                }).onChange({ (row) in
+                    row.cell.countLabel?.text = "限\(140 - (row.value?.count ?? 0))字"
+                })
+            
+            
             <<< TextAreaRow() {
                 $0.value = "You also have scrollable read only textAreaRows! I have to write a big text so you will be able to scroll a lot and see that this row is scrollable. I think it is a good idea to insert a Lorem Ipsum here: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac odio consectetur, faucibus elit at, congue dolor. Duis quis magna eu ante egestas laoreet. Vivamus ultricies tristique porttitor. Proin viverra sem non turpis molestie, volutpat facilisis justo rutrum. Nulla eget commodo ligula. Aliquam lobortis lobortis justo id fermentum. Sed sit amet elit eu ipsum ultricies porttitor et sed justo. Fusce id mi aliquam, iaculis odio ac, tempus sem. Aenean in eros imperdiet, euismod lacus vitae, mattis nulla. Praesent ornare sem vitae ornare efficitur. Nullam dictum tortor a tortor vestibulum pharetra. Donec sollicitudin varius fringilla. Praesent posuere fringilla tristique. Aliquam dapibus vel nisi in sollicitudin. In eu ligula arcu."
                 $0.textAreaMode = .readOnly
@@ -87,4 +102,13 @@ class FieldRowCustomizationController : FormViewController {
         }
 
     }
+
+    override open func textInputDidChange<T>(_ textInput: UITextInput, cell: Cell<T>) {
+        if let textView = textInput as? UITextView ,textView.text.count >= 140{
+            textView.text = (textView.text as NSString).substring(to: 140)
+        }
+    }
+
+    
+    
 }
